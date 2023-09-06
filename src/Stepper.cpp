@@ -34,9 +34,9 @@ void Stepper::moveTo(long absolute) {
         } else if (absolute < _currentPosition) {
             digitalWrite(_dirPin, LOW);
             digitalWrite(_stepPin, HIGH);
-            delay(1);
+            delayMicroseconds(700);
             digitalWrite(_stepPin, LOW);
-            delay(1);
+            delayMicroseconds(700);
             _currentPosition--;
         }
     }
@@ -45,18 +45,18 @@ void Stepper::moveTo(long absolute) {
 void Stepper::moveUp() {
     digitalWrite(_dirPin, HIGH);
     digitalWrite(_stepPin, HIGH);
-    delay(1);
+    delayMicroseconds(700);
     digitalWrite(_stepPin, LOW);
-    delay(1);
+    delayMicroseconds(700);
     _currentPosition++;
 }
 
 void Stepper::moveDown() {
     digitalWrite(_dirPin, LOW);
     digitalWrite(_stepPin, HIGH);
-    delay(1);
+    delayMicroseconds(700);
     digitalWrite(_stepPin, LOW);
-    delay(1);
+    delayMicroseconds(700);
     _currentPosition--;
 }
 

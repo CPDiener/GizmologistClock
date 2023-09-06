@@ -2,7 +2,7 @@
 #include <ClockFunction.h>
 #include <Stepper.h>
 
-ClockFunction clockFunction(2, 3, 4, 5, 10, 11, 12, 13);
+ClockFunction clockFunction(3, 2, 5, 4, 10, 11, 12, 13);
 
 void setup() {
     clockFunction.begin();
