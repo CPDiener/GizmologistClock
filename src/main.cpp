@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <Stepper.h>
 
-
 int dirPinLat = 2;
 int stepPinLat = 3;
 int dirPinLong = 4;
