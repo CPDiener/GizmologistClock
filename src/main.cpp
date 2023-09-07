@@ -1,41 +1,43 @@
+/*
+ * Created by CPDiener on 9/6/2023
+ * Functions as the main file arduino file for the clock (replacing the typical .ino file)
+ * */
+
 #include <Arduino.h>
 #include <Stepper.h>
+#include <ClockFunction.h>
 
-int dirPinLat = 2;
-int stepPinLat = 3;
-int dirPinLong = 4;
-int stepPinLong = 5;
+// Pins for the stepper motors
+int dirPinLat = 2; // X direction pin
+int stepPinLat = 3; // X step pin
+int dirPinLong = 4; // Y direction pin
+int stepPinLong = 5; // Y step pin
 
-int latLowSwitch = 10;
-int latHighSwitch = 11;
-int longLowSwitch = 12;
-int longHighSwitch = 13;
+int latLowSwitch = 10; // X low limit switch
+int latHighSwitch = 11; // X high limit switch
+int longLowSwitch = 12; // Y low limit switch
+int longHighSwitch = 13; // Y high limit switch
 
-Stepper stepperLat = Stepper(3, 4);
-
+// Create the stepper motors
+Stepper stepperLat = Stepper(stepPinLat, dirPinLat); // X stepper
 
 void setup() {
+  // Set the pin modes for the motors
   pinMode(stepPinLat, OUTPUT);
   pinMode(stepPinLong, OUTPUT);
   pinMode(dirPinLat, OUTPUT);
   pinMode(dirPinLong, OUTPUT);
 
+  // Set the pin modes for the limit switches
   pinMode(latLowSwitch, INPUT);
   pinMode(latHighSwitch, INPUT);
   pinMode(longLowSwitch, INPUT);
   pinMode(longHighSwitch, INPUT);
 
+  // Calibrate the stepper motors
+  stepperLat.calibrate(latLowSwitch, latHighSwitch);
 }
 
 void loop() {
-//  digitalWrite(dirPinLat, HIGH);
-//  digitalWrite(dirPinLong, HIGH);
-//  digitalWrite(stepPinLat, HIGH);
-//  digitalWrite(stepPinLong, HIGH);
-//  delayMicroseconds(700);
-//  digitalWrite(stepPinLat, LOW);
-//  digitalWrite(stepPinLong, LOW);
-//  delayMicroseconds(700);
 
-  stepperLat.moveUp();
 }

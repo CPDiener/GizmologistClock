@@ -1,3 +1,8 @@
+/*
+ * Created by CPDiener on 9/6/2023
+ * Provides the framework for the clock functionality
+ * */
+
 #include <Arduino.h>
 #include <ClockFunction.h>
 #include <Stepper.h>
@@ -27,32 +32,4 @@ void ClockFunction::begin() {
     pinMode(_latHighSwitch, INPUT);
     pinMode(_longLowSwitch, INPUT);
     pinMode(_longHighSwitch, INPUT);
-
-    bool isLatCalibrated = false;
-    bool isLongCalibrated = false;
-
-    while (!isLatCalibrated) {
-        calibrate(_stepperLat, _latLowSwitch, _latHighSwitch, isLatCalibrated);
-    }
-
-    while (!isLongCalibrated) {
-        calibrate(_stepperLong, _longLowSwitch, _longHighSwitch, isLongCalibrated);
-    }
-}
-
-void ClockFunction::calibrate(Stepper &motor, int minSwitchPin, int maxSwitchPin, bool &isCalibrated) {
-    while (!digitalRead(minSwitchPin)) {
-        motor.moveDown();
-    }
-    motor.setPos(0);
-
-    while (!digitalRead(maxSwitchPin)) {
-        motor.moveUp();
-    }
-    int maxPos = motor.getPos();
-    motor.setLimit(maxPos);
-
-    motor.moveTo(maxPos / 2);
-
-    isCalibrated = true;
 }

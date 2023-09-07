@@ -1,3 +1,8 @@
+/*
+ * Created by CPDiener on 9/6/2023
+ * Provides basic stepper motor functionality
+ * */
+
 #ifndef GIZMOCLOCK_STEPPER_H
 #define GIZMOCLOCK_STEPPER_H
 
@@ -13,11 +18,13 @@ public:
     void moveDown();
     void moveTo(long absolute);
     void setLimit(int max);
+    void calibrate(int minSwitchPin, int maxSwitchPin);
 private:
     int _stepPin;
     int _dirPin;
     int _currentPosition;
     int _maxPosition;
+    bool _isCalibrated = false;
 };
 
 #endif //GIZMOCLOCK_STEPPER_H

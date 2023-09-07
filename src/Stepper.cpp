@@ -1,3 +1,8 @@
+/*
+ * Created by CPDiener on 9/6/2023
+ * Provides basic stepper motor functionality
+ * */
+
 #include <Arduino.h>
 #include <Stepper.h>
 
@@ -62,4 +67,21 @@ void Stepper::moveDown() {
 
 void Stepper::setLimit(int max) {
     _maxPosition = max;
+}
+
+void Stepper::calibrate(int minSwitchPin, int maxSwitchPin) {
+  while (!digitalRead(minSwitchPin)) {
+    this->moveDown();
+  }
+  this->setPos(0);
+
+  while (!digitalRead(maxSwitchPin)) {
+    this->moveUp();
+  }
+  int maxPos = this->getPos();
+  this->setLimit(maxPos);
+
+  this->moveTo(maxPos / 2);
+
+  _isCalibrated = true;
 }
