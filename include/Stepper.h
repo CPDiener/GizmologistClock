@@ -13,17 +13,18 @@ class Stepper
 public:
     Stepper(int stepPin, int dirPin);
     void setPos(int pos);
-    int getPos();
+    int getPos() const;
     void moveUp();
     void moveDown();
-    void moveTo(long absolute);
+    void moveTo(int absolute);
     void setLimit(int max);
     void calibrate(int minSwitchPin, int maxSwitchPin);
+    void calibrateOne(int switchPin);
+    int _maxPosition;
 private:
     int _stepPin;
     int _dirPin;
     int _currentPosition;
-    int _maxPosition;
     bool _isCalibrated = false;
 };
 
