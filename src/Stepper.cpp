@@ -61,11 +61,39 @@ void Stepper::calibrate(int minSwitchPin, int maxSwitchPin) {
   while (!digitalRead(minSwitchPin)) {
     this->moveDown();
   }
+
+  for (int i = 0; i < 100; i++) {
+    moveUp();
+  }
+
+  while(!digitalRead(minSwitchPin)) {
+    digitalWrite(_dirPin, LOW);
+    digitalWrite(_stepPin, HIGH);
+    delay(5);
+    digitalWrite(_stepPin, LOW);
+    delay(5);
+    _currentPosition--;
+  }
+
   this->setPos(0);
 
   while (!digitalRead(maxSwitchPin)) {
     this->moveUp();
   }
+
+  for (int i = 0; i < 100; i++) {
+    moveDown();
+  }
+
+  while(!digitalRead(maxSwitchPin)) {
+    digitalWrite(_dirPin, HIGH);
+    digitalWrite(_stepPin, HIGH);
+    delay(5);
+    digitalWrite(_stepPin, LOW);
+    delay(5);
+    _currentPosition++;
+  }
+
   int maxPos = this->getPos();
   this->setLimit(maxPos);
 
@@ -79,6 +107,20 @@ void Stepper::calibrateOne(int switchPin) {
   while (!digitalRead(switchPin)) {
     this->moveDown();
   }
+
+  for (int i = 0; i < 100; i++) {
+    moveUp();
+  }
+
+  while(!digitalRead(switchPin)) {
+    digitalWrite(_dirPin, LOW);
+    digitalWrite(_stepPin, HIGH);
+    delay(5);
+    digitalWrite(_stepPin, LOW);
+    delay(5);
+    _currentPosition--;
+  }
+
   this->setPos(0);
 
   this->moveTo(800);
